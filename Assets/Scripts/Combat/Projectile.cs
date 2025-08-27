@@ -59,8 +59,7 @@ public class Projectile : MonoBehaviour
         {
             // 목적지에 정확히 도착
             active = false;
-            // 필요 시 착탄 이펙트 처리
-            Destroy(gameObject, 0.25f);
+            Destroy(gameObject, 1.0f);
         }
     }
 
@@ -83,10 +82,11 @@ public class Projectile : MonoBehaviour
             if (d != null && d.team != ownerTeam)
             {
                 d.ApplyDamage(damage);
+                Destroy(gameObject, .02f);
             }
             transform.position = hit.point;
             active = false;
-            Destroy(gameObject, 0.02f);
+            Destroy(gameObject, .6f);
         }
     }
 }
