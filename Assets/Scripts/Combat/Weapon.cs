@@ -9,6 +9,6 @@ public class Weapon : MonoBehaviour
         var p = Instantiate(projPrefab, muzzle.position, Quaternion.identity);
         p.ownerTeam = team;
         p.hitMask = LayerMask.GetMask("Default", "Enemy"); // 필요에 맞게
-        p.Launch(muzzle.position, target.position); // 시간, 호 높이
+        p.Launch(muzzle.position, target.position, 1.5f, 5.0f); // 시간, 호 높이
     }
 }
