@@ -59,8 +59,7 @@ public class FireArrowSO : SkillSO
         };
 
         // Launch
-        Vector2 end = (Vector2)ctx.muzzle.position + dir * range;
-        p.Launch(ctx.muzzle.position, end, flight, arc);
+        p.Launch(ctx.muzzle.position, ctx.target.position, flight, arc);
     }
 
     public override void OnEnd(ref SkillCtx ctx)

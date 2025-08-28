@@ -1,42 +1,53 @@
 using UnityEngine;
-using System;
 using System.Collections.Generic;
 
-public class SkillManager : MonoBehaviour, IAnimEventReceiver
+public enum SkillSlot { Q = 0, W = 1, E = 2 }
+
+public class SkillManager : MonoBehaviour
 {
+    [Header("Refs")]
     public Animator anim;
+    public AnimationClip slotBase;              // Animator의 Skill 상태에 걸린 베이스 클립
     public Transform muzzle, target;
     public string team = "Player";
-    public List<SkillSO> library;           // 인스펙터에 스킬 에셋 등록
+
+    [Header("Library")]
+    public List<SkillSO> library;               // 인스펙터에 등록
 
     class SlotRT { public SkillSO so; public float cd; public bool casting; public string pendingId; }
-    readonly Dictionary<SkillSlot, SlotRT> slots = new();
-    readonly Dictionary<string, SkillSO> byId = new();
-    SkillCtx ctx;
+    Dictionary<SkillSlot, SlotRT> slots = new Dictionary<SkillSlot, SlotRT>();
+    Dictionary<string, SkillSO> byId = new Dictionary<string, SkillSO>();
+    AnimatorOverrideController aoc;
 
     void Awake()
     {
+        aoc = new AnimatorOverrideController(anim.runtimeAnimatorController);
+        anim.runtimeAnimatorController = aoc;
+
         foreach (var so in library) if (so) byId[so.id] = so;
+
         slots[SkillSlot.Q] = new SlotRT();
         slots[SkillSlot.W] = new SlotRT();
         slots[SkillSlot.E] = new SlotRT();
-        ctx = new SkillCtx { self = transform, muzzle = muzzle, target = target, team = team, runner = this };
     }
-    void Start()
+
+    private void Start()
     {
         EquipSkill(SkillSlot.Q, "Volley");
         EquipSkill(SkillSlot.W, "FireArrow");
-        //EquipSkill(SkillSlot.E, "Shield");
+        EquipSkill(SkillSlot.E, "JumpTripleShot");
     }
+
     void Update()
     {
+        // 쿨다운 감소
         foreach (var kv in slots) if (kv.Value.cd > 0) kv.Value.cd -= Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Q))
-            TryCast(SkillSlot.Q);
-        if (Input.GetKeyDown(KeyCode.W))
-            TryCast(SkillSlot.W);
-        if (Input.GetKeyDown(KeyCode.E))
-            TryCast(SkillSlot.E);
+
+        if (PlayerController2D.inst.skillCasting)
+            return;
+        if (Input.GetKeyDown(KeyCode.Q)) TryCast(SkillSlot.Q);
+        if (Input.GetKeyDown(KeyCode.W)) TryCast(SkillSlot.W);
+        if (Input.GetKeyDown(KeyCode.E)) TryCast(SkillSlot.E);
     }
 
     public bool EquipSkill(SkillSlot slot, string id, bool force = false, bool resetCooldown = true)
@@ -45,7 +56,7 @@ public class SkillManager : MonoBehaviour, IAnimEventReceiver
         var r = slots[slot];
         if (r.casting && !force) { r.pendingId = id; return true; }
         r.so = so;
-        if (resetCooldown) r.cd = 0f;         // 원하면 false로 유지
+        if (resetCooldown) r.cd = 0f;
         r.pendingId = null;
         return true;
     }
@@ -54,34 +65,36 @@ public class SkillManager : MonoBehaviour, IAnimEventReceiver
     {
         var r = slots[slot];
         if (r.so == null || r.casting || r.cd > 0) return false;
+
+        // 애니메이션 클립 교체
+        if (slotBase && r.so.animClip) aoc[slotBase] = r.so.animClip;
+
+        // 슬롯 전달 + 트리거
+        anim.SetInteger("Slot", (int)slot);   // Animator에 Int "Slot" 있어야 함
+        anim.ResetTrigger("Skill");
+        anim.SetTrigger("Skill");             // Animator에 Trigger "Skill" 있어야 함
+
         r.casting = true;
+        var ctx = GetCtx();
         r.so.OnBegin(ref ctx);
-        anim.SetTrigger($"Slot_{slot}");       // Slot_Q/W/E 트리거
         return true;
     }
 
-    // 애니메이션 이벤트 문자열: "Slot.Fire:Q" or "Slot.End:W"
-    public void OnAnimEvent(string evt)
+    public SkillSO GetEquipped(SkillSlot slot)
     {
-        var parts = evt.Split(':'); if (parts.Length != 2) return;
-        var tag = parts[0];
-        if (!Enum.TryParse(parts[1], out SkillSlot slot)) return;
-        var r = slots[slot]; if (r.so == null) return;
+        return slots.TryGetValue(slot, out var r) ? r.so : null;
+    }
 
-        if (tag == "Slot.Fire") r.so.OnFire(ref ctx);
-        else if(tag == "Slot.Begin")
-        {
-            r.so.OnBegin(ref ctx);
-            r.casting = true;
-            if (!string.IsNullOrEmpty(r.pendingId))
-                EquipSkill(slot, r.pendingId, force: true);
-        }
-        else if (tag == "Slot.End")
-        {
-            r.so.OnEnd(ref ctx);
-            r.casting = false;
-            r.cd = r.so.cooldown;
-            if (!string.IsNullOrEmpty(r.pendingId)) EquipSkill(slot, r.pendingId, force: true);
-        }
+    public SkillCtx GetCtx()
+    {
+        return new SkillCtx { self = transform, muzzle = muzzle, target = target, team = team, runner = this };
+    }
+
+    public void OnSkillEnd(SkillSlot slot)
+    {
+        var r = slots[slot];
+        r.casting = false;
+        if (r.so != null) r.cd = r.so.cooldown;
+        if (!string.IsNullOrEmpty(r.pendingId)) EquipSkill(slot, r.pendingId, force: true);
     }
 }

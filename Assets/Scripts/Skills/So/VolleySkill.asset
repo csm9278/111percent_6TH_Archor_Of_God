@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Volley
   cooldown: 5
+  animClip: {fileID: 7400000, guid: 972887d8cd010fc4d939708643d86222, type: 2}
+  fireTime: 0.5
   proj: {fileID: 5055667795584598099, guid: 98cce389a322d614e9e79fb75bca60ec, type: 3}
   count: 10
   spread: 18

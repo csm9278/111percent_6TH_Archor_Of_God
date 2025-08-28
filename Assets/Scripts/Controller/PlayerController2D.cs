@@ -23,7 +23,11 @@ public class PlayerController2D : MonoBehaviour
     void Update()
     {
         if (skillCasting)
+        {
+            if (input != 0)
+                input = 0;
             return;
+        }
 
         input = Input.GetAxisRaw("Horizontal"); // -1,0,1
         if (input != 0)

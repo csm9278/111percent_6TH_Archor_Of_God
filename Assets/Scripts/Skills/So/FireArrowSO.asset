@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: FireArrow
   cooldown: 0
+  animClip: {fileID: 7400000, guid: 60a1118de732ced4bbe792b066c1e52e, type: 2}
+  fireTime: 0.5
   projPrefab: {fileID: 3892988623463505772, guid: 38c84a4433b8ee046b9ac3b52702a084, type: 3}
   hitMask:
     serializedVersion: 2
