@@ -15,7 +15,7 @@ MonoBehaviour:
   id: JumpTripleShot
   cooldown: 5
   animClip: {fileID: 7400000, guid: 3f32acc3d3057174f8db3af08c611d17, type: 2}
-  fireTime: 0.3
+  fireTime: 0.35
   projPrefab: {fileID: 5055667795584598099, guid: 98cce389a322d614e9e79fb75bca60ec, type: 3}
   hitMask:
     serializedVersion: 2
