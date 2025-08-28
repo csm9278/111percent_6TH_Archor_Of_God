@@ -10,7 +10,6 @@ public class Health : MonoBehaviour
     {
         if (Current <= 0) return;
         Current -= v;
-        Debug.Log(Current);
         OnDamaged?.Invoke();
         if (Current <= 0) OnDeath?.Invoke();
     }

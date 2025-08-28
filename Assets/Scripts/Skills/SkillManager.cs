@@ -25,18 +25,18 @@ public class SkillManager : MonoBehaviour, IAnimEventReceiver
     void Start()
     {
         EquipSkill(SkillSlot.Q, "Volley");
-        //EquipSkill(SkillSlot.W, "Dash");
+        EquipSkill(SkillSlot.W, "FireArrow");
         //EquipSkill(SkillSlot.E, "Shield");
     }
     void Update()
     {
         foreach (var kv in slots) if (kv.Value.cd > 0) kv.Value.cd -= Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Q))
-        {
             TryCast(SkillSlot.Q);
-        } 
-        if (Input.GetKeyDown(KeyCode.W)) TryCast(SkillSlot.W);
-        if (Input.GetKeyDown(KeyCode.E)) TryCast(SkillSlot.E);
+        if (Input.GetKeyDown(KeyCode.W))
+            TryCast(SkillSlot.W);
+        if (Input.GetKeyDown(KeyCode.E))
+            TryCast(SkillSlot.E);
     }
 
     public bool EquipSkill(SkillSlot slot, string id, bool force = false, bool resetCooldown = true)
@@ -56,7 +56,6 @@ public class SkillManager : MonoBehaviour, IAnimEventReceiver
         if (r.so == null || r.casting || r.cd > 0) return false;
         r.casting = true;
         r.so.OnBegin(ref ctx);
-        Debug.Log($"Slot_{slot}");
         anim.SetTrigger($"Slot_{slot}");       // Slot_Q/W/E Æ®¸®°Å
         return true;
     }
@@ -70,6 +69,13 @@ public class SkillManager : MonoBehaviour, IAnimEventReceiver
         var r = slots[slot]; if (r.so == null) return;
 
         if (tag == "Slot.Fire") r.so.OnFire(ref ctx);
+        else if(tag == "Slot.Begin")
+        {
+            r.so.OnBegin(ref ctx);
+            r.casting = true;
+            if (!string.IsNullOrEmpty(r.pendingId))
+                EquipSkill(slot, r.pendingId, force: true);
+        }
         else if (tag == "Slot.End")
         {
             r.so.OnEnd(ref ctx);

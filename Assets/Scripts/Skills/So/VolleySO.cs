@@ -5,7 +5,11 @@ using static UnityEngine.GraphicsBuffer;
 public class VolleySO : SkillSO
 {
     public Projectile proj;
-    public int count = 5; public float spread = 18f, arc = 2.5f, flight = 0.7f, range = 8f;
+    public int count = 5; public float spread = 18f, arc = 10.0f, flight = 1.5f, range = 15f;
+    public override void OnBegin(ref SkillCtx ctx)
+    {
+        PlayerController2D.inst.skillCasting = true;
+    }
     public override void OnFire(ref SkillCtx c)
     {
         if (!proj || !c.muzzle || !c.target) return;
@@ -17,9 +21,15 @@ public class VolleySO : SkillSO
             float ang = baseAng + i * (spread / Mathf.Max(1, half));
             var p = UnityEngine.Object.Instantiate(proj, c.muzzle.position, Quaternion.Euler(0, 0, ang));
             p.ownerTeam = c.team;
-            p.hitMask = LayerMask.GetMask("Default", "Enemy"); // 필요에 맞게
+            p.hitMask = LayerMask.GetMask("Ground", "Enemy"); // 필요에 맞게
             Vector2 end = (Vector2)c.muzzle.position + new Vector2(Mathf.Cos(ang * Mathf.Deg2Rad), Mathf.Sin(ang * Mathf.Deg2Rad)) * range;
             p.Launch(c.muzzle.position, end, flight, arc);
         }
+    }
+
+    public override void OnEnd(ref SkillCtx ctx)
+    {
+        PlayerController2D.inst.skillCasting = false;
+
     }
 }

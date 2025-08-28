@@ -3780,6 +3780,13 @@ AnimationClip:
   m_Events:
   - time: 0
     functionName: AnimEvent
+    data: Slot.Begin:W
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.46666667
+    functionName: AnimEvent
     data: Slot.Fire:W
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -3787,7 +3794,7 @@ AnimationClip:
     messageOptions: 0
   - time: 0.9166667
     functionName: AnimEvent
-    data: Slot.Fire:W
+    data: Slot.End:W
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

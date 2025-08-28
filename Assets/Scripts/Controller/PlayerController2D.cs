@@ -8,6 +8,7 @@ public class PlayerController2D : MonoBehaviour
     public Vector2 stageMinMaxX = new(-8f, 8f);
     Rigidbody2D rb; float input;
     Animator _animator;
+    public bool skillCasting = false;
 
     void Awake()
     {
@@ -21,6 +22,9 @@ public class PlayerController2D : MonoBehaviour
 
     void Update()
     {
+        if (skillCasting)
+            return;
+
         input = Input.GetAxisRaw("Horizontal"); // -1,0,1
         if (input != 0)
             _animator.SetBool("IsMove", true);

@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5218db641e87054393c9b5039775ed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 0
   ownerTeam: 
   hitMask:
     serializedVersion: 2
@@ -107,6 +107,9 @@ MonoBehaviour:
   duration: 1.5
   arcHeight: 5
   faceVelocity: 1
+  continuePastEnd: 1
+  postSpeed: 12
+  maxLife: 5
 --- !u!50 &7513954671831181498
 Rigidbody2D:
   serializedVersion: 4

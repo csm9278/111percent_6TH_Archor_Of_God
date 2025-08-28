@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d548474895f7940b24b2da5b7fcab8, type: 3}
+  m_Name: FireArrowSO
+  m_EditorClassIdentifier: 
+  id: FireArrow
+  cooldown: 0
+  projPrefab: {fileID: 3892988623463505772, guid: 38c84a4433b8ee046b9ac3b52702a084, type: 3}
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 0
+  flight: 1.5
+  arc: 5
+  range: 15
+  burnDuration: 3
+  burnTick: 0.5
+  burnDamagePerTick: 3
+  areaPrefab: {fileID: 6507863823086080352, guid: a52312acc6cee174abb87f5fb641ea3a, type: 3}
+  areaRadius: 1.5
+  areaDuration: 4
+  areaTick: 0.5
+  areaDamagePerTick: 2

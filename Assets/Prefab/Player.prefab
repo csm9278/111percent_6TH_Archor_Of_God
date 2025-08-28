@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6062017815635419672}
   - component: {fileID: 6259867190322994188}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Back leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6062017812108072354}
   - component: {fileID: 6259867193773660246}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Front leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,9 @@ GameObject:
   - component: {fileID: 6160690001274693119}
   - component: {fileID: 6160690001274693117}
   - component: {fileID: 6160690001274693116}
-  m_Layer: 0
+  - component: {fileID: 4000012178773530}
+  - component: {fileID: 4000012178773538}
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,6 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   stageMinMaxX: {x: -8.5, y: -2.4}
+  skillCasting: 0
 --- !u!114 &6160690001274693118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,8 +333,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projPrefab: {fileID: 5055667795584598099, guid: 98cce389a322d614e9e79fb75bca60ec, type: 3}
   muzzle: {fileID: 6065971462886205762}
-  team: 
+  team: Player
   target: {fileID: 0}
+--- !u!114 &4000012178773530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065545407257609946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2296b098bec4154bbdc3962839d4f26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 6160690001274693104}
+  muzzle: {fileID: 6065971462886205762}
+  target: {fileID: 0}
+  team: Player
+  library:
+  - {fileID: 11400000, guid: 6ec6b3ae5ad0af34eac641b6b3cc352b, type: 2}
+  - {fileID: 11400000, guid: de04611221dff484baadf377a0772ddd, type: 2}
+--- !u!114 &4000012178773538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065545407257609946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb1fb8eb20c9bc4d90683f31bdc47ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6065545408290760624
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +376,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6062017810161080790}
   - component: {fileID: 6259867190874789064}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Front arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,7 +461,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6062017816034718134}
   - component: {fileID: 6259867193614666950}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -511,7 +545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6062017813098481618}
   - component: {fileID: 6259867187749779064}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Back arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +630,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6062017813717373634}
   - component: {fileID: 6259867193880900244}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: bow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -680,7 +714,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6062017816014597724}
   - component: {fileID: 6259867190579548558}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -768,7 +802,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6065971462886205762}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ShotPoint
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
@@ -800,6 +834,10 @@ PrefabInstance:
     - target: {fileID: 285570053304366392, guid: 98cce389a322d614e9e79fb75bca60ec, type: 3}
       propertyPath: m_Name
       value: arrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 285570053304366392, guid: 98cce389a322d614e9e79fb75bca60ec, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 286880242046158134, guid: 98cce389a322d614e9e79fb75bca60ec, type: 3}
       propertyPath: m_RootOrder
