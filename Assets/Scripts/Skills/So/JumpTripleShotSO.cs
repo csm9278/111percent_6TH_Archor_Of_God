@@ -35,13 +35,14 @@ public class JumpTripleShotSO : SkillSO
         float ang = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
         var p = Object.Instantiate(projPrefab, ctx.muzzle.position, Quaternion.Euler(0, 0, ang));
+        projPrefab.damage = 5;
         p.ownerTeam = ctx.team;
+        p.pathMode = Projectile.PathMode.Linear;
         p.hitMask = LayerMask.GetMask("Player","Ground","Enemy");
         p.faceVelocity = true;
         p.continuePastEnd = true;
 
-        Vector2 end = (Vector2)ctx.muzzle.position + dir * range;
-        p.Launch(ctx.muzzle.position, end, flight, arc);
+        p.Launch(ctx.muzzle.position, ctx.target.position, flight, arc);
     }
 }
 
