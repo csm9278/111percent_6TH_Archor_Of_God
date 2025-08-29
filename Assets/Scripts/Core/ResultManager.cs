@@ -19,12 +19,16 @@ public class ResultManager : MonoBehaviour
         goLobbyBtn.onClick.AddListener(() =>
         {
             GameManager.inst.ResetGame();
+            winObject.SetActive(false);
+            loseObject.SetActive(false);
             this.gameObject.SetActive(false);
         });
 
         winLobbyBtn.onClick.AddListener(() => 
         {
             GameManager.inst.ResetGame();
+            winObject.SetActive(false);
+            loseObject.SetActive(false);
             this.gameObject.SetActive(false);
         });
     }
