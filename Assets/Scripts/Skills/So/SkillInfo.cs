@@ -11,6 +11,8 @@ public class SkillInfo : MonoBehaviour
     public Image skillImage;
     public Button EquipBtn;
     public Button CancleBtn;
+    public SkillSO skillso;
+    public SkillEquip equip;
 
     private void Start()
     {
@@ -21,12 +23,14 @@ public class SkillInfo : MonoBehaviour
 
         EquipBtn.onClick.AddListener(() =>
         {
-
+            equip.gameObject.SetActive(true);
+            equip.equipSo = skillso;
         });
     }
 
     public void InitInfo(SkillSO so)
     {
+        skillso = so;
         skillNameTmp.text = so.id;
         skillImage.sprite = so.skillImage;
         skillInfo.text = so.skillInfo;

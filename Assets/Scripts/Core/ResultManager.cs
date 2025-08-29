@@ -21,6 +21,12 @@ public class ResultManager : MonoBehaviour
             GameManager.inst.ResetGame();
             this.gameObject.SetActive(false);
         });
+
+        winLobbyBtn.onClick.AddListener(() => 
+        {
+            GameManager.inst.ResetGame();
+            this.gameObject.SetActive(false);
+        });
     }
     public void GameOver()
     {

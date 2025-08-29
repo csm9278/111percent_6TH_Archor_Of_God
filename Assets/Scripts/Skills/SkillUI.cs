@@ -57,7 +57,7 @@ public class SkillUI : MonoBehaviour
         var c = icon.color; c.a = a; icon.color = c;
     }
 
-    void SetSkill(SkillSO so)
+    public void SetSkill(SkillSO so)
     {
         icon.sprite = so.skillImage;
         fillImage.sprite = so.skillImage;

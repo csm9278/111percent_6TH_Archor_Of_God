@@ -10,7 +10,8 @@ public class PlayerController2D : MonoBehaviour
     Animator _animator;
     public bool skillCasting = false;
     bool isDie = false;
-
+    public SkillUI[] skillUis;
+    SkillManager skillManager;
     public void InitPlayer(GameObject enemy)
     {
         var w = GetComponent<Weapon>();
@@ -32,6 +33,7 @@ public class PlayerController2D : MonoBehaviour
         inst = this;
         rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        skillManager = GetComponent<SkillManager>();
         rb.gravityScale = 0f;
         rb.freezeRotation = true;
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
@@ -90,6 +92,16 @@ public class PlayerController2D : MonoBehaviour
         if(health)
             health.ResetHealth();
         isDie = false;
+    }
+
+    public void RefreshSkillUI()
+    {
+
+        for (int i = 0; i < 3; i++)
+        {
+            //Debug.Log(skillManager.GetEquipped((SkillSlot)i).id);
+            skillUis[i].SetSkill(skillManager.GetEquipped((SkillSlot)i));
+        }
     }
 
     public void WinMotion()

@@ -19,7 +19,6 @@ public class SkillManager : MonoBehaviour
     Dictionary<string, SkillSO> byId = new Dictionary<string, SkillSO>();
     AnimatorOverrideController aoc;
 
-    public SkillUI[] skillUIs;
     void Awake()
     {
         aoc = new AnimatorOverrideController(anim.runtimeAnimatorController);
@@ -36,7 +35,8 @@ public class SkillManager : MonoBehaviour
     {
         EquipSkill(SkillSlot.Q, "Volley");
         EquipSkill(SkillSlot.W, "FireArrow");
-        EquipSkill(SkillSlot.E, "AttackSpeedX10");
+        EquipSkill(SkillSlot.E, "JumpTripleShot");
+        PlayerController2D.inst.RefreshSkillUI();
     }
 
     void Update()
