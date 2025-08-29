@@ -7,12 +7,12 @@ public class SkillManager : MonoBehaviour
 {
     [Header("Refs")]
     public Animator anim;
-    public AnimationClip slotBase;              // Animator의 Skill 상태에 걸린 베이스 클립
+    public AnimationClip slotBase;             
     public Transform muzzle, target;
     public string team = "Player";
 
     [Header("Library")]
-    public List<SkillSO> library;               // 인스펙터에 등록
+    public List<SkillSO> library;               
 
     class SlotRT { public SkillSO so; public float cd; public bool casting; public string pendingId; }
     Dictionary<SkillSlot, SlotRT> slots = new Dictionary<SkillSlot, SlotRT>();
@@ -36,20 +36,25 @@ public class SkillManager : MonoBehaviour
     {
         EquipSkill(SkillSlot.Q, "Volley");
         EquipSkill(SkillSlot.W, "FireArrow");
-        EquipSkill(SkillSlot.E, "JumpTripleShot");
+        EquipSkill(SkillSlot.E, "AttackSpeedX10");
     }
 
     void Update()
     {
+        if (!GameManager.inst.gameStart)
+            return;
+
         // 쿨다운 감소
         foreach (var kv in slots)
         {
             if (kv.Value.cd > 0)
             {
                 kv.Value.cd -= Time.deltaTime;
-
             }
         }
+
+        if (team != "Player")
+            return;
 
         if (PlayerController2D.inst.skillCasting)
             return;
@@ -78,13 +83,12 @@ public class SkillManager : MonoBehaviour
         if (slotBase && r.so.animClip) aoc[slotBase] = r.so.animClip;
 
         // 슬롯 전달 + 트리거
-        anim.SetInteger("Slot", (int)slot);   // Animator에 Int "Slot" 있어야 함
+        anim.SetInteger("Slot", (int)slot);   
         anim.ResetTrigger("Skill");
-        anim.SetTrigger("Skill");             // Animator에 Trigger "Skill" 있어야 함
+        anim.SetTrigger("Skill");             
 
         r.casting = true;
         var ctx = GetCtx();
-        r.so.OnBegin(ref ctx);
         return true;
     }
 

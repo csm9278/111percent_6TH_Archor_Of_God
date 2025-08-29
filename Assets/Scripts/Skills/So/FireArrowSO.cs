@@ -46,6 +46,8 @@ public class FireArrowSO : SkillSO
                 d.ApplyDamage(p.damage);
                 var area = Object.Instantiate(areaPrefab, col.gameObject.transform.position, Quaternion.identity);
                 area.gameObject.transform.SetParent(col.gameObject.transform);
+                var fire = area.GetComponent<FireArea>();
+                fire.Init(ctx.team);
                 //var burn = d.GetComponent<BurnDoT>() ?? d.gameObject.AddComponent<BurnDoT>();
                 //burn.Apply(burnDuration, burnTick, burnDamagePerTick);
             }
@@ -56,6 +58,8 @@ public class FireArrowSO : SkillSO
             if (!areaPrefab) return;
             var area = Object.Instantiate(areaPrefab, hitPt, Quaternion.identity);
             area.Init(ctx.team, areaRadius, areaDuration, areaTick, areaDamagePerTick);
+            var fire = area.GetComponent<FireArea>();
+            fire.Init(ctx.team);
         };
 
         // Launch

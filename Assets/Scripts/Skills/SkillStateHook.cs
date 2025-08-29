@@ -15,7 +15,9 @@ public class SkillStateHook : StateMachineBehaviour
         if (so == null) return;
 
         var ctx = sm.GetCtx();
-        so.OnBegin(ref ctx);
+
+        if (sm.team == "Player")
+            so.OnBegin(ref ctx);
     }
 
     public override void OnStateUpdate(Animator a, AnimatorStateInfo s, int l)
@@ -25,7 +27,6 @@ public class SkillStateHook : StateMachineBehaviour
         var slot = (SkillSlot)a.GetInteger(SlotHash);
         var so = sm.GetEquipped(slot);
         if (so == null) return;
-
         // 루프 대비: normalizedTime%1f 사용. 상태가 비루프면 s.normalizedTime 그대로도 OK.
         float t = s.normalizedTime % 1f;
         if (!fired && t >= so.fireTime)
@@ -45,7 +46,8 @@ public class SkillStateHook : StateMachineBehaviour
         if (so != null)
         {
             var ctx = sm.GetCtx();
-            so.OnEnd(ref ctx);
+            if(sm.team == "Player")
+                so.OnEnd(ref ctx);
         }
         sm.OnSkillEnd(slot);
     }

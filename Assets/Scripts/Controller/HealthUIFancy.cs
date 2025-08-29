@@ -7,19 +7,19 @@ public class HealthUIFancy : MonoBehaviour
 {
     [Header("Refs")]
     public Health health;
-    public Image frontBar;              // 메인 색상 게이지
-    public Image chipBar;               // 흰색 칩(뒤에 깔림)
+    public Image frontBar;             
+    public Image chipBar;              
     public TMP_Text label;
 
     [Header("Anim")]
-    public float frontLerpSpeed = 12f;  // 빠르게 따라감
-    public float chipDelay = 0.15f;     // 칩 지연
-    public float chipLerpSpeed = 2.5f;  // 천천히 감소
+    public float frontLerpSpeed = 12f; 
+    public float chipDelay = 0.15f;    
+    public float chipLerpSpeed = 2.5f; 
     public Color healColor = new(0.6f, 1f, 0.6f, 1f);
     public Color dmgColor = new(1f, 0.6f, 0.6f, 1f);
     public float flashTime = 0.12f;
 
-    float targetFill;                   // 0~1
+    float targetFill;                   
     Coroutine chipCo, flashCo;
 
     void OnEnable()
@@ -74,7 +74,6 @@ public class HealthUIFancy : MonoBehaviour
         }
         else
         {
-            // 회복 시 칩을 먼저 올리고 front가 따라오게
             while (!Mathf.Approximately(chipBar.fillAmount, targetFill))
             {
                 float cur = Mathf.MoveTowards(chipBar.fillAmount, targetFill, (chipLerpSpeed * 1.5f) * Time.unscaledDeltaTime);

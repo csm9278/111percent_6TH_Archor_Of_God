@@ -24,6 +24,10 @@ public class FireArea : MonoBehaviour
         hitMask = LayerMask.GetMask("Player", "Enemy");
     }
 
+    public void Init(string ownerTeam)
+    {
+        this.ownerTeam = ownerTeam;
+    }
     void Awake()
     {
         col = gameObject.AddComponent<CircleCollider2D>();

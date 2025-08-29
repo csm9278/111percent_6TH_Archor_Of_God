@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
     public int maxHP = 100;
     public int Current { get; private set; }
     public Action OnDeath, OnDamaged;
-    public Action<int, int> OnChanged; // ¡ç Ãß°¡ (current, max)
+    public Action<int, int> OnChanged; 
 
     void Awake() { Current = maxHP; OnChanged?.Invoke(Current, maxHP); }
 
@@ -22,6 +22,16 @@ public class Health : MonoBehaviour
         Current -= v;
         OnDamaged?.Invoke();
         OnChanged?.Invoke(Current, maxHP);
-        if (Current <= 0) OnDeath?.Invoke();
+        if (Current <= 0)
+        {
+            var ani = GetComponent<Animator>();
+            ani.SetTrigger("Die");
+            OnDeath?.Invoke();
+        }
+    }
+
+    public void ResetHealth()
+    {
+        Current = maxHP;
     }
 }
