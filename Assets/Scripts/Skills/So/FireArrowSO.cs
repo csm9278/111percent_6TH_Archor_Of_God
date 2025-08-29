@@ -46,8 +46,8 @@ public class FireArrowSO : SkillSO
                 d.ApplyDamage(p.damage);
                 var area = Object.Instantiate(areaPrefab, col.gameObject.transform.position, Quaternion.identity);
                 area.gameObject.transform.SetParent(col.gameObject.transform);
-                var burn = d.GetComponent<BurnDoT>() ?? d.gameObject.AddComponent<BurnDoT>();
-                burn.Apply(burnDuration, burnTick, burnDamagePerTick);
+                //var burn = d.GetComponent<BurnDoT>() ?? d.gameObject.AddComponent<BurnDoT>();
+                //burn.Apply(burnDuration, burnTick, burnDamagePerTick);
             }
         };
 

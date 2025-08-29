@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf7836bda5585a4cb928d9c10cd7d53, type: 3}
   m_Name: JumpTripleShotSO
   m_EditorClassIdentifier: 
+  skillImage: {fileID: 21300000, guid: bde2c5e3962adb04f8bc7ab014b15513, type: 3}
   id: JumpTripleShot
+  skillInfo: "\uACF5\uC911\uC73C\uB85C \uB6F0\uC5B4\uC624\uB978 \uB4A4 \uC801\uC5D0\uAC8C
+    \uD654\uC0B4\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
   cooldown: 5
   animClip: {fileID: 7400000, guid: 3f32acc3d3057174f8db3af08c611d17, type: 2}
   fireTime: 0.35

@@ -12,6 +12,11 @@ public class JumpTripleShotSO : SkillSO
     // 3발 간격 (초 단위)
     public float interval = 0.1f;
 
+    public override void OnBegin(ref SkillCtx ctx)
+    {
+        PlayerController2D.inst.skillCasting = true;
+    }
+
     public override void OnFire(ref SkillCtx ctx)
     {
         ctx.runner.StartCoroutine(FireThree(ctx));
@@ -24,6 +29,11 @@ public class JumpTripleShotSO : SkillSO
             FireOne(ctx);
             yield return new WaitForSeconds(interval);
         }
+    }
+
+    public override void OnEnd(ref SkillCtx ctx)
+    {
+        PlayerController2D.inst.skillCasting = false;
     }
 
     void FireOne(SkillCtx ctx)

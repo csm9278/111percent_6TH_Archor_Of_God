@@ -19,6 +19,7 @@ public class SkillManager : MonoBehaviour
     Dictionary<string, SkillSO> byId = new Dictionary<string, SkillSO>();
     AnimatorOverrideController aoc;
 
+    public SkillUI[] skillUIs;
     void Awake()
     {
         aoc = new AnimatorOverrideController(anim.runtimeAnimatorController);
@@ -41,7 +42,14 @@ public class SkillManager : MonoBehaviour
     void Update()
     {
         // 쿨다운 감소
-        foreach (var kv in slots) if (kv.Value.cd > 0) kv.Value.cd -= Time.deltaTime;
+        foreach (var kv in slots)
+        {
+            if (kv.Value.cd > 0)
+            {
+                kv.Value.cd -= Time.deltaTime;
+
+            }
+        }
 
         if (PlayerController2D.inst.skillCasting)
             return;
@@ -96,5 +104,12 @@ public class SkillManager : MonoBehaviour
         r.casting = false;
         if (r.so != null) r.cd = r.so.cooldown;
         if (!string.IsNullOrEmpty(r.pendingId)) EquipSkill(slot, r.pendingId, force: true);
+    }
+
+    // UI용 상태 조회
+    public (string id, float cdRemain, bool casting) GetSlotState(SkillSlot slot)
+    {
+        var r = slots[slot];
+        return (r.so ? r.so.id : null, Mathf.Max(0, r.cd), r.casting);
     }
 }

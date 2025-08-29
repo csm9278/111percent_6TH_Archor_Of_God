@@ -30,6 +30,5 @@ public class VolleySO : SkillSO
     public override void OnEnd(ref SkillCtx ctx)
     {
         PlayerController2D.inst.skillCasting = false;
-
     }
 }

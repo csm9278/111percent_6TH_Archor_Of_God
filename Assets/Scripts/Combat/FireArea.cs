@@ -47,11 +47,7 @@ public class FireArea : MonoBehaviour
             {
                 var d = h.GetComponentInParent<Damageable>();
                 if (d != null && d.team != ownerTeam)
-                {
-                    var hp = d.GetComponent<Health>();
-                    Debug.Log(hp.Current);
-                    hp?.Damage(damagePerTick);
-                }
+                    d.ApplyDamage(damagePerTick, DamageType.Fire);
             }
             yield return new WaitForSeconds(tick);
             t += tick;

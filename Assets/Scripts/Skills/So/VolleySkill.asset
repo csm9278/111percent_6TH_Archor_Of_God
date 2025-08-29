@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1aad9b462ee44c4dae4b32cf92a3027, type: 3}
   m_Name: VolleySkill
   m_EditorClassIdentifier: 
+  skillImage: {fileID: 21300000, guid: 6ffa8ca51ad88354f98bac0198d82518, type: 3}
   id: Volley
+  skillInfo: "\uBB34\uC218\uD788 \uB9CE\uC740 \uD654\uC0B4\uC744 \uC801\uC5D0\uAC8C
+    \uD769\uBFCC\uB9BD\uB2C8\uB2E4."
   cooldown: 5
   animClip: {fileID: 7400000, guid: 972887d8cd010fc4d939708643d86222, type: 2}
   fireTime: 0.5

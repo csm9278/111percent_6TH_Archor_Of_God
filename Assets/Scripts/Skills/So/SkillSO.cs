@@ -9,7 +9,9 @@ public struct SkillCtx
 
 public abstract class SkillSO : ScriptableObject
 {
-    public string id;            // "Volley","Dash","Shield" 등
+    public Sprite skillImage;
+    public string id;
+    public string skillInfo;
     public float cooldown = 5f;
     public AnimationClip animClip; // 이 스킬 전용 클립
     public float fireTime = 0.3f;  // 0~1
