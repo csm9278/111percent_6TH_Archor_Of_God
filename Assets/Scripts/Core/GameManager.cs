@@ -54,6 +54,10 @@ public class GameManager : MonoBehaviour
 
         hpUIObject.gameObject.SetActive(true);
 
+        var damageable = botobj.GetComponent<Damageable>();
+        if (damageable)
+            damageable.uiCanvas = damageTextCanvas;
+
         botCtrl = botobj.GetComponent<BotController>();
         if (botCtrl)
             botCtrl.InitBot();
